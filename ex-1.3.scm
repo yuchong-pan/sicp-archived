@@ -1,0 +1,8 @@
+(define (f a b c)
+  (define (square x)
+    (* x x))
+  (define (sum-of-squares a b)
+    (+ (square a) (square b)))
+  (cond ((and (>= b a) (>= c a)) (sum-of-squares b c))
+        ((and (>= a b) (>= c b)) (sum-of-squares a c))
+        ((and (>= a c) (>= b c)) (sum-of-squares a b))))
