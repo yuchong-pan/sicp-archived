@@ -1,0 +1,196 @@
+\documentclass[11pt, oneside]{article}
+\usepackage{geometry}
+\geometry{letterpaper}
+\usepackage{graphicx}
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{tikz}
+\usepackage{tikz-qtree}
+
+\title{SICP Exercise 1.14}
+\author{Yuchong Pan}
+
+\begin{document}
+\maketitle
+
+Since the interpreter keeps track of a chain of deferred operations, and since either the amount or the number of the types of the coins is decremented by a constant each time, the space used by the process grows as $\Theta(n)$.
+
+Since the value of $(cc~a~1)$ equals the value of $(cc~(-~a~1)~1)$ plus the value of $(cc~a~0)$, and since evaluating $(cc~a~0)$ requires $\Theta(1)$ steps, then we have
+$$R_1(n) = R_1(n-1)+\Theta(1)$$
+which yields
+$$R_1(n) = \Theta(n)$$
+
+Similarly, we have that the value of $(cc~a~2)$ equals the value of $(cc~(-~a~5)~2)$ plus the value of $(cc~a~1)$ and that evaluating $(cc~a~1)$ requires $\Theta(n)$ steps. Hence, we have
+$$R_2(n) = R_2(n-5)+\Theta(n)$$
+which yields
+$$R_2(n) = \Theta(n^2)$$
+
+By analogy, we can deduce that
+$$R_5(n) = \Theta(n^5)$$
+
+In a nutshell, the process requires $\Theta(n^5)$ steps and space $\Theta(n)$.
+
+\begin{center}
+    \begin{tikzpicture}
+        \node (is-root) {(cc 11 5)}
+            [sibling distance=5cm]
+            child[missing]
+            child {
+                node {(cc 11 4)}
+                    [sibling distance=5cm]
+                    child[missing]
+                    child {
+                        node {(cc 11 3)}
+                            [sibling distance=7cm]
+                            child {
+                                node {(cc 11 2)}
+                                [sibling distance=5cm]
+                                    child {
+                                        node {(cc 11 1)}
+                                            [sibling distance=1.5cm]
+                                            child { node {(cc 11 0)} }
+                                            child {
+                                                node {(cc 10 1)}
+                                                    [sibling distance=1.5cm]
+                                                    child { node {(cc 10 0)} }
+                                                    child {
+                                                        node {(cc 9 1)}
+                                                            [sibling distance=1.5cm]
+                                                            child { node {(cc 9 0)} }
+                                                            child {
+                                                                node {(cc 8 1)}
+                                                                    [sibling distance=1.5cm]
+                                                                        child { node {(cc 8 0)} }
+                                                                        child {
+                                                                            node {(cc 7 1)}
+                                                                                [sibling distance=1.5cm]
+                                                                                child { node {(cc 7 0)} }
+                                                                                child {
+                                                                                    node {(cc 6 1)}
+                                                                                        [sibling distance=1.5cm]
+                                                                                            child { node {(cc 6 0)} }
+                                                                                            child {
+                                                                                                node {(cc 5 1)}
+                                                                                                    [sibling distance=1.5cm]
+                                                                                                    child { node {(cc 5 0)} }
+                                                                                                    child {
+                                                                                                        node {(cc 4 1)}
+                                                                                                            [sibling distance=1.5cm]
+                                                                                                            child { node {(cc 4 0)} }
+                                                                                                            child {
+                                                                                                                node {(cc 3 1)}
+                                                                                                                    [sibling distance=1.5cm]
+                                                                                                                    child { node {(cc 3 0)} }
+                                                                                                                    child {
+                                                                                                                        node {(cc 2 1)}
+                                                                                                                            [sibling distance=1.5cm]
+                                                                                                                            child { node {(cc 2 0)} }
+                                                                                                                            child {
+                                                                                                                                node {(cc 1 1)}
+                                                                                                                                    [sibling distance=1.5cm]
+                                                                                                                                    child { node {(cc 1 0)} }
+                                                                                                                                    child[missing]
+                                                                                                                                    child { node {(cc 0 1)} }
+                                                                                                                            }
+                                                                                                                            child[missing]
+                                                                                                                    }
+                                                                                                                    child[missing]
+                                                                                                            }
+                                                                                                            child[missing]
+                                                                                                    }
+                                                                                                    child[missing]
+                                                                                            }
+                                                                                            child[missing]
+                                                                                }
+                                                                                child[missing]
+                                                                        }
+                                                                        child[missing]
+                                                            }
+                                                            child[missing]
+                                                    }
+                                                    child[missing]
+                                            }
+                                            child[missing]
+                                    }
+                                    child {
+                                        node {(cc 6 2)}
+                                            [sibling distance=2.5cm]
+                                            child {
+                                                node {(cc 6 1)}
+                                                    [sibling distance=1.5cm]
+                                                    child { node {(cc 6 0)} }
+                                                    child {
+                                                        node {(cc 5 1)}
+                                                            [sibling distance=1.5cm]
+                                                            child { node {(cc 5 0)} }
+                                                            child {
+                                                                node {(cc 4 1)}
+                                                                    [sibling distance=1.5cm]
+                                                                        child { node {(cc 4 0)} }
+                                                                        child[missing]
+                                                                        child {
+                                                                            node {(cc 3 1)}
+                                                                                [sibling distance=1.5cm]
+                                                                                child {node {(cc 3 0)} }
+                                                                                child[missing]
+                                                                                child {
+                                                                                    node {(cc 2 1)}
+                                                                                        [sibling distance=1.5cm]
+                                                                                            child { node {(cc 2 0)} }
+                                                                                            child[missing]
+                                                                                            child {
+                                                                                                node {(cc 1 1)}
+                                                                                                    [sibling distance=1.5cm]
+                                                                                                    child { node {(cc 1 0)} }
+                                                                                                    child[missing]
+                                                                                                    child { node {(cc 0 1)} }
+                                                                                            }
+                                                                                }
+                                                                        }
+                                                            }
+                                                            child[missing]
+                                                    }
+                                                    child[missing]
+                                            }
+                                            child {
+                                                node {(cc 1 2)}
+                                                    [sibling distance=1.5cm]
+                                                    child[missing]
+                                                    child {
+                                                        node {(cc 1 1)}
+                                                            [sibling distance=1.5cm]
+                                                            child[missing]
+                                                            child { node {(cc 1 0)} }
+                                                            child { node {(cc 0 1)} }
+                                                    }
+                                                    child { node {(cc -4 2)} }
+                                            }
+                                    }
+                            }
+                            child {
+                                node {(cc 1 3)}
+                                [sibling distance=2.5cm]
+                                    child[missing]
+                                    child {
+                                        node {(cc 1 2)}
+                                            [sibling distance=2.5cm]
+                                            child[missing]
+                                            child {
+                                                node {(cc 1 1)}
+                                                    [sibling distance=2.5cm]
+                                                    child[missing]
+                                                    child { node {(cc 1 0)} }
+                                                    child { node {(cc 0 1)} }
+                                            }
+                                            child { node {(cc -4 2)} }
+                                    }
+                                    child { node {(cc -9 3)} }
+                            }
+                    }
+                    child { node {(cc -14 4)} }
+            }
+            child { node {(cc -39 5)} };
+    \end{tikzpicture}
+\end{center}
+
+\end{document}
