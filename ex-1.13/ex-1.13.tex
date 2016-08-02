@@ -1,0 +1,62 @@
+\documentclass[11pt, oneside]{article}
+\usepackage{geometry}
+\geometry{letterpaper}
+\usepackage{graphicx}
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{ntheorem}
+
+\title{SICP Exercise 1.13}
+\author{Yuchong Pan}
+
+\begin{document}
+\maketitle
+
+\theoremstyle{nonumberplain}
+
+\newtheorem{claim}{Claim}
+\newtheorem{lemma}{Lemma}
+\newtheorem{proof}{Proof}
+
+\begin{lemma}
+    $Fib(n) = \frac{\phi^n-\psi^n}{\sqrt{5}}$, where $\phi = \frac{1+\sqrt{5}}{2}$ and $\psi = \frac{1-\sqrt{5}}{2}$.
+\end{lemma}
+
+\begin{proof}
+    We have the following degenerate cases:
+    $$\frac{\phi^0-\psi^0}{\sqrt{5}} = \frac{1-1}{\sqrt{5}} = 0 = Fib(0)$$
+    $$\frac{\phi^1-\psi^1}{\sqrt{5}} = \frac{\sqrt{5}}{\sqrt{5}} = 1 = Fib(1)$$
+
+    Suppose we have proved that
+    $$Fib(i) = \frac{\phi^i-\psi^i}{\sqrt{5}}$$
+    $$Fib(i+1) = \frac{\phi^{i+1}-\psi^{i+1}}{\sqrt{5}}$$
+
+    According to the definition of the Fibonacci numbers, we have
+    $$Fib(i+2) = Fib(i)+Fib(i+1) = \frac{\left(\phi^i+\phi^{i+1}\right)-\left(\psi^i+\psi^{i+1}\right)}{\sqrt{5}}$$
+
+    Since we have $\phi^2 = \phi+1$ and $\psi^2 = \psi+1$, then
+    $$\phi^{i+2} = \phi^i\phi^2=\phi^i(\phi+1)=\phi^{i+1}+\phi^i$$
+    $$\psi^{i+2} = \psi^i\psi^2=\psi^i(\psi+1)=\psi^{i+1}+\psi^i$$
+
+    Hence, we have
+    $$Fib(i+2) = \frac{\phi^{i+2} - \psi^{i+2}}{\sqrt{5}}$$.
+
+    By induction, it can be proved that
+    $$Fib(n) = \frac{\phi^n-\psi^n}{\sqrt{5}}$$
+\end{proof}
+
+\begin{claim}
+    $Fib(n)$ is the closest integer to $\frac{\phi^n}{\sqrt{5}}$, where $\phi = \frac{1+\sqrt{5}}{2}$.
+\end{claim}
+
+\begin{proof}
+    Since $0 < \frac{1}{\sqrt{5}} < \frac{1}{2}$ and since $-\frac{1}{2} < \frac{\psi}{\sqrt{5}} < 0$, then we have
+    $$-\frac{1}{2} < \frac{\psi^n}{\sqrt{5}} < \frac{1}{2}, n \in \mathbb{N}$$
+
+    By the lemma we have proved that
+    $$Fib(n) = \frac{\phi^n-\psi^n}{\sqrt{5}}$$
+
+    Hence, $Fib(n)$ is the closest integer to $\frac{\phi^n}{\sqrt{5}}$.
+\end{proof}
+
+\end{document}
