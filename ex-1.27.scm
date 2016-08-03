@@ -1,0 +1,16 @@
+(define (test-Carmichael? n)
+  (test-Carmichael-iter? 1 n))
+(define (test-Carmichael-iter? a n)
+  (cond ((= a n) #t)
+        ((= (expmod a n n) a) (test-Carmichael-iter? (+ a 1) n))
+        (else #f)))
+(define (expmod a n m)
+  (cond ((= n 0) 1)
+        ((even? n) (remainder (square (expmod a (/ n 2) m)) m))
+        (else (remainder (* a (expmod a (- n 1) m)) m))))
+(define (square x)
+  (* x x))
+(define (even? x)
+  (= (remainder x 2) 0))
+
+;; Carmichael numbers: 561, 1105, 1729, 2465, 2821, 6601, ...
