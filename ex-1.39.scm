@@ -1,0 +1,20 @@
+(define (cont-frac n d k)
+  (define (iter n d k dominator)
+    (if (= k 1)
+        (/ (n k) dominator)
+        (iter n
+              d
+              (- k 1)
+              (+ (d (- k 1))
+                 (/ (n k) dominator)))))
+  (iter n d k (d k)))
+(define (tan-cf x k)
+  (cont-frac (lambda (i)
+               (if (= i 1)
+                   x
+                   ((lambda (x)
+                      (- (* x x)))
+                    x)))
+             (lambda (i)
+               (- (* 2 i) 1.))
+             k))
