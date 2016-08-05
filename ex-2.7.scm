@@ -1,6 +1,4 @@
 (define (lower-bound interval)
-  (min (car interval)
-       (cdr interval)))
+  (car interval))
 (define (upper-bound interval)
-  (max (car interval)
-       (cdr interval)))
+  (cdr interval))
