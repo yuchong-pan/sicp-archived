@@ -1,0 +1,13 @@
+(define (cons x y)
+  (* (expt 2 x)
+     (expt 3 y)))
+(define (car z)
+  (count-power z 2 0))
+(define (cdr z)
+  (count-power z 3 0))
+(define (count-power num base power)
+  (if (= (remainder num base) 0)
+      (count-power (quotient num base)
+                   base
+                   (+ power 1))
+      power))
