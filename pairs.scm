@@ -1,0 +1,7 @@
+(define (cons x y)
+  (lambda (m)
+    (cond ((= m 0) x)
+          ((= m 1) y)
+          (else (error "Argument Error" m)))))
+(define (car z) (z 0))
+(define (cdr z) (z 1))
