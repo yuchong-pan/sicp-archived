@@ -1,6 +1,6 @@
 ;; Suppose R1 is a resistor with the center of 100 ohms and the percentage tolerance of 1%, and R2 is a resistor with the center of 200
 ;; ohms and the percentage tolerance of 1%.
-;; The parallel-resistor given by par1 is a resister with the center of 83.23 ohms and the percentage tolerance of 21.36%, and that given
+;; The parallel resistance given by par1 is a resister with the center of 83.23 ohms and the percentage tolerance of 21.36%, and that given
 ;; by par2 is a resistor with the center of 66.67 ohms and the percentage tolerance of 0.84%.
 ;; Hence, Lem is right.
 ;;
