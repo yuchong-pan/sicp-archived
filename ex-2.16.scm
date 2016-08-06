@@ -7,5 +7,6 @@
 ;; regard the two A's as two different measurements with the same interval and give an interval centered at 1 with some percentage
 ;; tolerance.
 ;;
-;; Therefore, it is impossible to devise an interval-arithmetic package that does not have this shortcoming, since the interpreter cannot
-;; tell whether the repeated variables represent the same measurement or not.
+;; Therefore, it is impossible to devise an interval-arithmetic package that does not have this shortcoming, since only the values of the
+;; intervals are given to the system and thus the system cannot tell whether two intervals with the same value represent the same
+;; measurement or not.
