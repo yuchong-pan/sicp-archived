@@ -1,0 +1,8 @@
+(define (same-parity . items)
+  (define (recur temp-items)
+    (cond ((null? temp-items) nil)
+          ((= (remainder (car items) 2)
+              (remainder (car temp-items) 2))
+           (cons (car temp-items) (recur (cdr temp-items))))
+          (else (recur (cdr temp-items)))))
+  (recur items))
