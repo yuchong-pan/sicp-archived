@@ -1,0 +1,23 @@
+(define (left-branch mobile)
+  (list-ref mobile 0))
+(define (right-branch mobile)
+  (list-ref mobile 1))
+(define (branch-length branch)
+  (list-ref branch 0))
+(define (branch-structure branch)
+  (list-ref branch 1))
+(define (total-weight mobile)
+  (cond ((not (pair? mobile)) mobile)
+        (else (+ (total-weight (branch-structure (left-branch mobile)))
+                 (total-weight (branch-structure (right-branch mobile)))))))
+(define (balanced? mobile)
+  (cond ((not (pair? mobile)) #t)
+        (else (and (balanced? (branch-structure (left-branch mobile)))
+                   (balanced? (branch-structure (right-branch mobile)))
+                   (= (* (branch-length (left-branch mobile))
+                         (total-weight (branch-structure (left-branch mobile))))
+                      (* (branch-length (right-branch mobile))
+                         (total-weight (branch-structure (right-branch mobile)))))))))
+
+;; If the representation of mobiles is changed so that the constructors use cons instead of list, what I need to do is only to substitute
+;; (list-ref ... 0) by (car ...) and to substitute (list-ref ... 1) by (cdr ...).
