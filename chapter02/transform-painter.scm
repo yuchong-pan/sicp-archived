@@ -32,5 +32,18 @@
 (define (squash-inward painter)
   (transform-painter painter
                      (make-vect 0. 0.)
-                     (make-vect .65 .35)
-                     (make-vect .35 .65)))
+                     (make-vect .6 .4)
+                     (make-vect .4 .6)))
+
+(define (beside p1 p2)
+  (let ((left (transform-painter p1
+                                 (make-vect 0. 0.)
+                                 (make-vect .5 0.)
+                                 (make-vect 0. 1.)))
+        (right (transform-painter p2
+                                  (make-vect .5 0.)
+                                  (make-vect 1. 0.)
+                                  (make-vect .5 1.))))
+    (lambda (frame)
+      (left frame)
+      (right frame))))
