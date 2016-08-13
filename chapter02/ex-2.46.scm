@@ -4,6 +4,7 @@
   (car vect))
 (define (ycor-vect vect)
   (cdr vect))
+
 (define (add-vect vect1 vect2)
   (cons (+ (xcor-vect vect1)
            (xcor-vect vect2))
