@@ -28,7 +28,7 @@
 (define (make-sum exp1 exp2)
   (cond ((=number? exp1 0) exp2)
         ((=number? exp2 0) exp1)
-        ((and (number? exp1) (number exp2)) (+ exp1 exp2))
+        ((and (number? exp1) (number? exp2)) (+ exp1 exp2))
         (else (list '+ exp1 exp2))))
 (define (make-product exp1 exp2)
   (cond ((or (=number? exp1 0) (=number? exp2 0)) 0)
