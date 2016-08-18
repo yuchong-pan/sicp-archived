@@ -16,10 +16,11 @@
                (intersection-set (cdr set1) set2)))
         (else (intersection-set (cdr set1) set2))))
 
-;; The number of steps required by element-of-set?, adjoin-set, union-set and intersection set for the duplicate representation is
+;; The number of steps required by element-of-set?, adjoin-set, union-set and intersection-set for the duplicate representation is
 ;; Theta(n), Theta(1), Theta(n) and Theta(n^2), respectively. Hence, adjoin-set and union-set for the duplicate representation are more
 ;; efficient than the corresponding procedures for the non-duplicate representation, which require Theta(n) and Theta(n^2) steps,
-;; respectively.
+;; respectively. However, element-of-set? and intersection-set require, in the worst case, 2 times the number of steps over the non-
+;; duplicate representation, although there is still Theta(n) and Theta(n^2) growth, respectively.
 ;;
 ;; If one needs to count the number of some value in the set, or if there are far more the adjoin-set and union-set operations than the
 ;; element-of-set? and intersection-set operations, the duplicate representation will be used in preference to the non-duplicate one.
