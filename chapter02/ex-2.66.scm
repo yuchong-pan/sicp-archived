@@ -1,0 +1,7 @@
+(define (lookup given-key set-of-records)
+  (cond ((null? set-of-records) #f)
+        (else (let ((this-record (entry set-of-records)))
+                (let ((this-key (key this-record)))
+                  (cond ((= given-key this-key) this-record)
+                        ((< given-key this-key) (lookup given-key (left-branch set-of-records)))
+                        ((> given-key this-key) (lookup given-key (right-branch set-of-records)))))))))
