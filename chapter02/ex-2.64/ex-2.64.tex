@@ -1,0 +1,52 @@
+\documentclass[11pt, oneside]{article}
+\usepackage{geometry}
+\geometry{letterpaper}
+\usepackage{graphicx}
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{tikz}
+\usepackage{tikz-qtree}
+\usepackage{url}
+
+\title{SICP Exercise 2.64}
+\author{Yuchong Pan}
+
+\begin{document}
+\maketitle
+
+a. If the parameter $n$ equals 0, then the constructed tree will be empty, and the remaining elements will be all the original elements. Otherwise, the \url{partial-tree} procedure recursively converts the first $\lfloor \frac{n-1}{2} \rfloor$ elements to the left subtree and the last $n - \left( \lfloor \frac{n-1}{2} \rfloor + 1 \right)$ elements to the right subtree, and the middle entry is the entry of the constructed tree. Then, \url{partial-tree} calls the constructor \url{make-tree} to make a tree with the entry, the left subtree and the right subtree. The tree produced by \url{list->tree} for the list (1 3 5 7 9 11) is given as follows:
+
+~
+
+~
+
+~
+
+\begin{center}
+    \begin{tikzpicture}
+        \node (isroot) {5}
+            [sibling distance=5cm]
+            child {
+                node {1}
+                    [sibling distance=2.5cm]
+                    child[missing]
+                    child { node {3} }
+            }
+            child {
+                node {9}
+                    [sibling distance=2.5cm]
+                    child { node {7} }
+                    child { node {11} }
+            };
+    \end{tikzpicture}
+\end{center}
+
+~
+
+~
+
+~
+
+b. The number of steps required by \url{list->tree} grows as $\Theta(n)$, where $n$ is the size of the given list.
+
+\end{document}
