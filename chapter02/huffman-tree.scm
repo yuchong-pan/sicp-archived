@@ -21,7 +21,7 @@
   (cadr tree))
 (define (symbols tree)
   (if (leaf? tree)
-      (symbol-leaf tree)
+      (list (symbol-leaf tree))
       (caddr tree)))
 (define (weight tree)
   (if (leaf? tree)
