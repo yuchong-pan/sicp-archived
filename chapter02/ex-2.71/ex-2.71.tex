@@ -1,0 +1,96 @@
+\documentclass[11pt, oneside]{article}
+\usepackage{geometry}
+\geometry{letterpaper}
+\usepackage{graphicx}
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{tikz}
+\usepackage{tikz-qtree}
+\usepackage{url}
+
+\title{SICP Exercise 2.64}
+\author{Yuchong Pan}
+
+\begin{document}
+\maketitle
+
+The tree for $n = 5$ is given as follows:
+
+\begin{center}
+    \begin{tikzpicture}
+        \node (isroot) {31}
+            [sibling distance=2.5cm]
+            child {
+                node {15}
+                    [sibling distance=2.5cm]
+                    child {
+                        node {7}
+                            [sibling distance=2.5cm]
+                            child {
+                                node {3}
+                                    [sibling distance=2.5cm]
+                                    child { node {1} }
+                                    child { node {2} }
+                            }
+                            child { node {4} }
+                    }
+                    child { node {8} }
+            }
+            child { node {16} };
+    \end{tikzpicture}
+\end{center}
+
+The tree for $n = 10$ is given as follows:
+
+\begin{center}
+    \begin{tikzpicture}
+        \node (isroot) {1023}
+            [sibling distance=2.5cm]
+            child {
+                node {511}
+                    [sibling distance=2.5cm]
+                    child {
+                        node {255}
+                            [sibling distance=2.5cm]
+                            child {
+                                node {127}
+                                    [sibling distance=2.5cm]
+                                    child {
+                                        node {63}
+                                            [sibling distance=2.5cm]
+                                            child {
+                                                node {31}
+                                                    [sibling distance=2.5cm]
+                                                    child {
+                                                        node {15}
+                                                            [sibling distance=2.5cm]
+                                                            child {
+                                                                node {7}
+                                                                    [sibling distance=2.5cm]
+                                                                    child {
+                                                                        node {3}
+                                                                            [sibling distance=2.5cm]
+                                                                            child { node {1} }
+                                                                            child { node {2} }
+                                                                    }
+                                                                    child { node {4} }
+                                                            }
+                                                            child { node {8} }
+                                                    }
+                                                    child { node {16} }
+                                            }
+                                            child { node {32} }
+                                    }
+                                    child { node {64} }
+                            }
+                            child { node {128} }
+                    }
+                    child { node {256} }
+            }
+            child { node {512} };
+    \end{tikzpicture}
+\end{center}
+
+In such a tree (for general $n$), one bit is required to encode the most frequent symbol, and $(n-1)$ bits are required to encode the least frequent symbol.
+
+\end{document}
