@@ -43,8 +43,13 @@
   (let ((type-tags (map type-tag args)))
     (let ((proc (get op type-tags)))
       (if proc
-          (proc (map contents args))
+          (apply proc (map contents args))
           (error "No method for these types -- APPLY-GENERIC" (list op type-tags))))))
+
+(define (real-part x) (apply-generic 'real-part x))
+(define (imag-part x) (apply-generic 'imag-part x))
+(define (magnitude x) (apply-generic 'magnitude x))
+(define (angle x) (apply-generic 'angle x))
 
 (define make-from-real-imag
   (get 'make-from-real-imag 'rectangular))
