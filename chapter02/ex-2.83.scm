@@ -2,7 +2,7 @@
   (define (raise-real x)
     (make-from-real-imag x 0))
   (define (raise-rational x)
-    (make-real (/ (numer x) (denom x))))
+    (make-real (/ (car x) (cdr x))))
   (define (raise-integer x)
     (make-rational x 1))
   (put 'raise '(real) raise-real)
