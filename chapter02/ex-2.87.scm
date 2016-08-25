@@ -1,0 +1,6 @@
+(define (install-=zero?-package)
+  (put '=zero? '(scheme-number) (lambda (x) (= x 0)))
+  (put '=zero? '(polynomial) (lambda (x) (empty-termlist? x)))
+  'done)
+(define (=zero? x)
+  (apply-generic '=zero? x))
