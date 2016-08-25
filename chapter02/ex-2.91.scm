@@ -22,6 +22,8 @@
                      (div-terms (sub-terms L1
                                            (mul-terms L2
                                                       (adjoin-term (make-term new-o new-c)
-                                                                   (the-empty-termlist)))))))
-                (adjoin-term (make-term new-o new-c)
-                             rest-of-result)))))))
+                                                                   (the-empty-termlist))))
+                                L2)))
+                (list (adjoin-term (make-term new-o new-c)
+                                   (car rest-of-result))
+                      (cadr rest-of-result))))))))
