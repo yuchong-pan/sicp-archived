@@ -35,3 +35,5 @@
   (put 'mul '(polynomial polynomial) (lambda (x y) (tag (mul-poly x y))))
   (put 'make 'polynomial (lambda (x y) (tag (make-poly x y))))
   'done)
+(define (make-polynomial var terms)
+  ((get 'make 'polynomial) var terms))
