@@ -61,11 +61,13 @@
   (apply-generic 'empty-termlist? x))
 
 (define (install-polynomial-package)
+  ;; add-poly, mul-poly, add-terms, mul-terms, ...
   (put 'make 'polynomial (lambda (var terms)
                            (attach-tag 'polynomial
                                        (cons var terms))))
   (put 'variable '(polynomial) car)
   (put 'term-list '(polynomial) cdr)
+  ;; interface add-poly, mul-poly, etc to rest of the system
   'done)
 (define (make-polynomial x y)
   ((get 'make 'polynomial) x y))
