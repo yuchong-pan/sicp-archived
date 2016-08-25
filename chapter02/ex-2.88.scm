@@ -1,12 +1,15 @@
 (define (install-negation-package)
   (put 'negation '(scheme-number) (lambda (x) (attach-tag 'scheme-number (- x))))
+  (put 'negation '(term-list) (lambda (x)
+                                (attach-tag 'term-list
+                                            (map (lambda (term)
+                                                   (make-term (order term)
+                                                              (negation (coeff term))))
+                                                 x))))
   (put 'negation '(polynomial) (lambda (x)
                                  (attach-tag 'polynomial
                                              (make-poly (variable x)
-                                                        (map (lambda (term)
-                                                               (make-term (order term)
-                                                                          (negation (coeff term))))
-                                                             (term-list x))))))
+                                                        (negation (term-list x))))))
   'done)
 (define (negation x) (apply-generic 'negation x))
 
