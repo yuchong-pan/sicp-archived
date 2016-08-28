@@ -132,14 +132,44 @@
 
 (define time-to-impact
   (lambda (vertical-velocity elevation)
-    YOUR-CODE-HERE))
+    (max (root1 (* 0.5 -9.8)
+		vertical-velocity
+		elevation)
+	 (root2 (* 0.5 -9.8)
+		vertical-velocity
+		elevation))))
+
+;; According to Problem 1, we have u(t) = 1/2 at^2 + vt + u. When the baseball impacts the ground, we have u(t)=0. Hence, we have the quadratic equation -1/2 gt^2 + vt + u = 0. Since -1/2 g < 0 and u>=0, then the smaller root is less than zero and makes no sense. Therefore, the greater root to the equation is the time when the baseball impacts the ground.
+
+;; The following lines show some test cases.
+
+; (time-to-impact 0 0)     ; -> 0
+; (time-to-impact 0 5)     ; -> 1.0101525445522106
+; (time-to-impact 5 0)     ; -> 1.0204081632653061
+; (time-to-impact 5 5)     ; -> 1.6418914802458588
+; (time-to-impact 5 10)    ; -> 2.027149872175358
 
 ;; Note that if we want to know when the ball drops to a particular height r 
 ;; (for receiver), we have
 
 (define time-to-height
   (lambda (vertical-velocity elevation target-elevation)
-    YOUR-CODE-HERE))
+    (max (root1 (* 0.5 -9.8)
+		vertical-velocity
+		(- elevation target-elevation))
+	 (root2 (* 0.5 -9.8)
+		vertical-velocity
+		(- elevation target-elevation)))))
+
+;; We have -1/2 gt^2 + vt + u = u(t), where u(t) is a specified target elevation. Hence, we have -1/2 gt^2 + vt + (u-u(t)) = 0. Similarly to time-to-impact, we conclude that the greater root to the quadratic equation above is the time when the baseball drops to the given height.
+
+;; The following lines show some test cases.
+
+; (time-to-height 0 0 0)     ; -> 0
+; (time-to-height 5 10 0)    ; -> 2.027149872175358
+; (time-to-height 5 10 5)    ; -> 1.6418914802458588
+; (time-to-height 5 10 20)   ; -> No valid root to the equation (-4.9 5 -10)
+; (time-to-height 2 10 5)    ; -> 1.2346433610573548
 
 ;; Problem 4
 
