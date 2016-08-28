@@ -182,7 +182,12 @@
 
 (define travel-distance-simple
   (lambda (elevation velocity angle)
-    YOUR-CODE-HERE))
+    (let ((vx (* velocity (cos angle)))
+	  (vy (* velocity (sin angle))))
+      (let ((t (time-to-impact vy elevation)))
+	(* t vx)))))
+
+;; According to Figure 2, we have that the velocity in the x direction equals the velocity times the cosine of the angle, and that the velocity in the y direction equals the velocity times the sine of the angle. Hence, using time-to-impact, we can compute how long the baseball is in flight. Therefore, the traveled distance equals the time during which the baseball is in flight times the velocity in the x direction.
 
 ;; let's try this out for some example values.  Note that we are going to 
 ;; do everything in metric units, but for quaint reasons it is easier to think
@@ -210,9 +215,30 @@
 ;; at an angle of (/ pi 2) radians or 90 degrees (straight vertical)
 ;; at an angle of (/ pi 4) radians or 45 degrees
 
+(define pi (acos -1.))
+(time-to-impact (* 45 (cos 0)) 1)        ; -> 9.20584217798685
+(time-to-impact (* 45 (cos (/ pi 2))) 1) ; -> .45175395145262587
+(time-to-impact (* 45 (cos (/ pi 4))) 1) ; -> 6.525114117972054
+
 ;; what is the distance traveled in each case?
 ;; record both in meters and in feet
 
+(define distance1 (travel-distance-simple 1 45 0))        ; -> 20.32892781536815 meters
+(meters-to-feet distance1)                                ; -> 67.0854617907149 feet
+(define distance2 (travel-distance-simple 1 45 (/ pi 2))) ; -> 2.5366286602636414e-14 meters
+(meters-to-feet distance2)                                ; -> 8.370874578870016e-14 feet
+(define distance3 (travel-distance-simple 1 45 (/ pi 4))) ; -> 207.62785983753528 meters
+(meters-to-feet distance3)                                ; -> 685.1719374638665 feet
+
+;; The following lines show some additional test cases.
+
+; (travel-distance-simple 0 0 0)         ; -> 0
+; (travel-distance-simple 0 45 (/ pi 2)) ; -> 2.530520171707541e-14
+; (travel-distance-simple 0 45 (/ pi 4)) ; -> 206.6326530612245
+; (travel-distance-simple 5 20 0)        ; -> 20.203050891044214
+; (travel-distance-simple 5 20 (/ pi 6)) ; -> 42.54349315264964
+; (travel-distance-simple 5 20 (/ pi 4)) ; -> 45.31950125659939
+; (travel-distance-simple 5 20 (/ pi 3)) ; -> 38.031066754029354
 
 ;; Problem 5
 
