@@ -64,11 +64,67 @@
 
 (define root1
   (lambda (a b c)
-    YOUR-CODE-HERE))
+    (if (= a 0)
+	(if (= b 0)
+	    (error (if (= c 0)
+		       "Infinitely many roots to the equation"
+		       "No valid root to the equation")
+		   (list a b c))
+	    (- (/ c b)))
+	(let ((delta (- (* b b)
+			(* 4 a c))))
+	  (if (< delta 0)
+	      (error "No valid root to the equation" (list a b c))
+	      (/ (- (- b)
+		    (sqrt delta))
+		 (* 2 a)))))))
+
+;; When a=0, the equation degenerates to a linear equation. Hence, if b does not equal 0, then the unique root is -c/b. Otherwise, if b=c=0, then there are infinitely many roots to the equation; if b=0 but c does not equal 0, then there is no valid root to the equation.
+
+;; For typical situations where a does not equal 0, let delta be b^2-4ac. If delta is less than 0, then there is no valid root to the equation az^2+bz+c=0; otherwise, the smaller root is (-b-sqrt(delta))/2a.
+
+;; The following lines show some test cases.
+
+; (root1 0 0 0)     ; -> Infinitely many roots to the equation (0 0 0)
+; (root1 0 0 2)     ; -> No valid root to the equation (0 0 2)
+; (root1 0 3 4)     ; -> -4/3
+; (root1 5 3 6)     ; -> No valid root to the equation (5 3 6)
+; (root1 1 2 1)     ; -> -1
+; (root1 1 -3 2)    ; -> 1
+; (root1 2 -5 2)    ; -> 1/2
+; (root1 -2 6 3)    ; -> 3.4364916731037085
 
 (define root2
   (lambda (a b c)
-    YOUR-CODE-HERE))
+    (if (= a 0)
+	(if (= b 0)
+	    (error (if (= c 0)
+		       "Infinitely many roots to the equation"
+		       "No valid root to the equation")
+		   (list a b c))
+	    (- (/ c b)))
+	(let ((delta (- (* b b)
+			(* 4 a c))))
+	  (if (< delta 0)
+	      (error "No valid root to the equation" (list a b c))
+	      (/ (+ (- b)
+		    (sqrt delta))
+		 (* 2 a)))))))
+
+;; When a=0, the equation degenerates to a linear equation. Hence, if b does not equal 0, then the unique root is -c/b. Otherwise, if b=c=0, then there are infinitely many roots to the equation; if b=0 but c does not equal 0, then there is no valid root to the equation.
+
+;; For typical situations where a does not equal 0, let delta be b^2-4ac. If delta is less than 0, then there is no valid root to the equation az^2+bz+c=0; otherwise, the greater root is (-b+sqrt(delta))/2a.
+
+;; The following lines show some test cases.
+
+; (root2 0 0 0)     ; -> Infinitely many roots to the equation (0 0 0)
+; (root2 0 0 2)     ; -> No valid root to the equation (0 0 2)
+; (root2 0 3 4)     ; -> -4/3
+; (root2 5 3 6)     ; -> No valid root to the equation (5 3 6)
+; (root2 1 2 1)     ; -> -1
+; (root2 1 -3 2)    ; -> 2
+; (root2 2 -5 2)    ; -> 2
+; (root2 -2 6 3)    ; -> -.4364916731037085
 
 ;; complete these procedures and show some test cases
 
