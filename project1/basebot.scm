@@ -34,15 +34,30 @@
 
 (define position
   (lambda (a v u t)
-    YOUR-CODE-HERE))
+    (+ (* 1/2 a t t)
+       (* v t)
+       u)))
+
+;; In rectilinear motion with constant acceleration, the equation for the position of a particle at time t, given acceleration a, initial velocity v and initial position u, is u(t) = 1/2 at^2 + vt + u.
 
 ;; you need to complete this procedure, then show some test cases
 
-; (position 0 0 0 0)
-; (position 0 0 20 0)
-; (position 0 5 10 10)
-; (position 2 2 2 2)
-; (position 5 5 5 5)
+; (position 0 0 0 0)     ; -> 0
+; (position 0 0 20 0)    ; -> 20
+; (position 0 5 10 10)   ; -> 60
+; (position 2 2 2 2)     ; -> 10
+; (position 5 5 5 5)     ; -> 185/2
+
+;; The following additional test cases cover boundary and typical conditions.
+
+; (position 0 5 0 10)    ; -> 50
+; (position 0 5 20 10)   ; -> 70
+; (position 5 0 0 10)    ; -> 250
+; (position 5 0 20 10)   ; -> 270
+; (position 5 10 0 20)   ; -> 1200
+; (position 5 10 50 20)  ; -> 1250
+; (position 5 10 20 50)  ; -> 6770
+; (position 10 20 30 40) ; -> 8830
 
 
 ;; Problem 2
