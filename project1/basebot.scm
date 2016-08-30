@@ -253,11 +253,34 @@
 
 (define find-best-angle
   (lambda (velocity elevation)
-    YOUR-CODE-HERE))
+    (define (try angle)
+      (if (> angle (/ pi 2))
+	  (cons -1 -1)
+	  (max-pair (cons angle (travel-distance-simple elevation velocity angle))
+		    (try (+ angle alpha-increment)))))
+    (define (max-pair p1 p2)
+      (if (> (cdr p1) (cdr p2)) p1 p2))
+    (car (try 0))))
+
+;; The find-best-angle procedure recursively tries different angles between 0 and pi/2, sampled every 0.01 radians, computes the corresponding distances, and gets the maximum value of these distances with the corresponding angle.
+
+;; The following lines show some test cases.
+; (find-best-angle 0 0)       ; -> 1.5700000000000012
+; (find-best-angle 0 5)       ; -> 1.5700000000000012
+; (find-best-angle 5 5)       ; -> .4200000000000002
+; (find-best-angle 10 20)     ; -> .4200000000000002
+; (find-best-angle 20 20)     ; -> .6200000000000003
+; (find-best-angle 100 100)   ; -> .7400000000000004
+; (find-best-angle 300 400)   ; -> .7600000000000005
+; (find-best-angle 1000 1000) ; -> .7800000000000005
+; (find-best-angle 2000 5000) ; -> .7800000000000005
+; (find-best-angle 5000 5000) ; -> .7800000000000005
 
 ;; find best angle
 ;; try for other velocities
 ;; try for other heights
+
+;; According to the test cases above, the conclusion can be reached that the optimal angle of hitting is around 0.78 radians or 45 degrees.
 
 ;; Problem 6
 
