@@ -353,15 +353,87 @@
 
 (define integrate
   (lambda (x0 y0 u0 v0 dt g m beta)
-    YOUR-CODE-HERE))
+    (let ((dx (* u0 dt))
+	  (dy (* v0 dt))
+	  (du (- (* (/ m)
+		    beta
+		    (sqrt (+ (* u0 u0) (* v0 v0)))
+		    u0
+		    dt)))
+	  (dv (- (* (+ (* (/ m)
+			  (sqrt (+ (* u0 u0) (* v0 v0)))
+			  v0
+			  beta)
+		       g)
+		    dt))))
+      (let ((new-x (+ x0 dx))
+	    (new-y (+ y0 dy))
+	    (new-u (+ u0 du))
+	    (new-v (+ v0 dv)))
+	(if (< new-y 0)
+	    new-x
+	    (integrate new-x new-y new-u new-v dt g m beta))))))
+
+;; The integrate procedure moves forward time of dt every time, and computes the new values of x, y, u and v. If the new value of y drops below zero, then the corresponding x is the traveled distance of the baseball; otherwise, integrate moves forward dt again and computes the new values of x, y, u and v, and so on.
+
+;; The following lines show some test cases.
+; (integrate 0 0 0 0 .01 9.8 .15 .001344)         ; -> 0
+; (integrate 10 10 0 0 .01 9.8 .15 .001344)       ; -> 10
+; (integrate 0 0 20 20 .01 9.8 .15 .001344)       ; -> 53.80851494354015
+; (integrate 10 20 30 40 .01 9.8 .15 .001344)     ; -> 112.08302758144761
+; (integrate 100 100 100 100 .01 9.8 .15 .001344) ; -> 321.569077334666
 
 (define travel-distance
-  YOUR-CODE-HERE)
+  (lambda (initial-elevation initial-velocity initial-angle rho)
+    (let ((C .5)
+	  (D .074)
+	  (dt .01)
+	  (g 9.8)
+	  (m .15))
+      (let ((A (* pi D D 1/4)))
+	(let ((beta (* .5 C rho A)))
+	  (let ((x0 0)
+		(y0 initial-elevation)
+		(u0 (* initial-velocity
+		       (cos initial-angle)))
+		(v0 (* initial-velocity
+		       (sin initial-angle))))
+	    (integrate x0 y0 u0 v0 dt g m beta)))))))
+
+;; The travel-distance procedure takes as arguments the initial elevation, velocity and angle and the specified value of rho, computes the corresponding x0, y0, u0, v0 and beta, and calls integrate to calculate the corresponding traveled distance.
 
 
 ;; RUN SOME TEST CASES
 
+;; The following lines show some test cases.
+
+; (travel-distance 0 45 (/ pi 4) 1.25)     ; -> 93.23390861728039
+; (travel-distance 0 40 (/ pi 4) 1.25)     ; -> 82.31191076204233
+; (travel-distance 0 35 (/ pi 4) 1.25)     ; -> 70.59221358199957
+
+; (define bound (feet-to-meters 300))      ; -> 90.9090909090909
+
+(define get-boundary-angle
+  (lambda (initial-elevation initial-velocity initial-angle bound delta op rho)
+    (define (try angle)
+      (let ((distance (travel-distance initial-elevation initial-velocity angle rho)))
+	(if (< distance bound)
+	    angle
+	    (try (op angle delta)))))
+    (try initial-angle)))
+
+;; The get-boundary-angle procedure increments or decrements the angle of hitting by delta at a time, until the corresponding distance is less than the boundary distance.
+
+(get-boundary-angle 0 45 (/ pi 4) bound .01 + 1.25)     ; -> .8553981633974483
+(get-boundary-angle 0 45 (/ pi 4) bound .01 - 1.25)     ; -> .515398163397448
+
+Hence, the range of angles for which the ball will land over the fence is from 0.52 to 0.86.
+
 ;; what about Denver?
+(get-boundary-angle 0 45 (/ pi 4) bound .01 + 1.06)     ; -> .9753981633974484
+(get-boundary-angle 0 45 (/ pi 4) bound .01 - 1.06)     ; -> .42539816339744796
+
+;; The range of angles in Denver is from .43 to .98, which is larger than the range of angles in Boston.
 
 ;; Problem 7
  
