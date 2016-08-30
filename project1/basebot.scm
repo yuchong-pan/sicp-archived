@@ -411,7 +411,7 @@
 ; (travel-distance 0 40 (/ pi 4) 1.25)     ; -> 82.31191076204233
 ; (travel-distance 0 35 (/ pi 4) 1.25)     ; -> 70.59221358199957
 
-; (define bound (feet-to-meters 300))      ; -> 90.9090909090909
+(define bound (feet-to-meters 300))        ; -> 90.9090909090909
 
 (define get-boundary-angle
   (lambda (initial-elevation initial-velocity initial-angle bound delta op rho)
@@ -427,7 +427,7 @@
 (get-boundary-angle 0 45 (/ pi 4) bound .01 + 1.25)     ; -> .8553981633974483
 (get-boundary-angle 0 45 (/ pi 4) bound .01 - 1.25)     ; -> .515398163397448
 
-Hence, the range of angles for which the ball will land over the fence is from 0.52 to 0.86.
+;; Hence, the range of angles for which the ball will land over the fence is from 0.52 to 0.86.
 
 ;; what about Denver?
 (get-boundary-angle 0 45 (/ pi 4) bound .01 + 1.06)     ; -> .9753981633974484
@@ -442,13 +442,60 @@ Hence, the range of angles for which the ball will land over the fence is from 0
 ;; use, given a velocity, in order to reach a given height (receiver) at a 
 ;; given distance
 
+(define infinity 1e99)
+
+(define shortest-time
+  (lambda (desired-distance initial-elevation initial-velocity m beta g dt delta tolerance)
+    (define (try angle)
+      (if (> angle (/ pi 2))
+	  infinity
+	  (min (if (good-enough? (travel-distance angle)
+				 desired-distance
+				 tolerance)
+		   (time-to-impact (* initial-velocity (sin angle))
+				   initial-elevation)
+		   infinity)
+	       (try (+ angle delta)))))
+    (define good-enough?
+      (lambda (a b tolerance)
+	(< (abs (- a b)) tolerance)))
+    (define travel-distance
+      (lambda (angle)
+	(integrate 0
+		   initial-elevation
+		   (* initial-velocity (cos angle))
+		   (* initial-velocity (sin angle))
+		   dt
+		   g
+		   m
+		   beta)))
+    (let ((result (try 0)))
+      (if (good-enough? result infinity tolerance)
+	  0
+	  result))))
+
+;; The get-angle procedure tries different angles between 0 and pi/2, sampled every delta radians, to check whether the corresponding traveled distance is close enough to the desired distance. If the computed distance is close enough to the desired distance, then the procedure checks the corresponding time for the shortest time.
+
+;; The following lines show some test cases.
+
+; (shortest-time 0 0 0 .15 .001134 9.8 .01 .0001 .01)     ; -> 0.
+; (shortest-time 0 0 10 .15 .001134 9.8 .01 .0001 .01)    ; -> 2.040816075162977
+; (shortest-time 0 10 10 .15 .001134 9.8 .01 .0001 .01)   ; -> 2.7759846775353094
+; (shortest-time 10 10 10 .15 .001134 9.8 .01 .0001 .01)  ; -> 2.6401004043530767
+; (shortest-time 100 10 10 .15 .001134 9.8 .01 .0001 .01) ; -> 0
 
 ;; a cather trying to throw someone out at second has to get it roughly 36 m
 ;; (or 120 ft) how quickly does the ball get there, if he throws at 55m/s,
 ;;  at 45m/s, at 35m/s?
+; (shortest-time 36 0 55 .15 .001134 9.8 .01 .0001 .1)    ; -> 11.094229042671891 seconds
+; (shortest-time 36 0 45 .15 .001134 9.8 .01 .0001 .1)    ; -> 9.023745864057055 seconds
+; (shortest-time 36 0 35 .15 .001134 9.8 .01 .0001 .1)    ; -> 1.242222777178302 seconds
 
 ;; try out some times for distances (30, 60, 90 m) or (100, 200, 300 ft) 
 ;; using 45m/s
+; (shortest-time 30 0 45 .15 .001134 9.8 .01 .0001 .1)    ; -> .7613700151832731 seconds
+; (shortest-time 60 0 45 .15 .001134 9.8 .01 .0001 .1)    ; -> 8.680688075886959 seconds
+; (shortest-time 90 0 45 .15 .001134 9.8 .01 .0001 .1)    ; -> 3.688472303088773 seconds
 
 ;; Problem 8
 
