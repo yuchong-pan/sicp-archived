@@ -1,0 +1,12 @@
+(define (contain-cycle? x)
+  (define (valid-step? x y)
+    (and (pair? x)
+	 (pair? y)
+	 (pair? (cdr y))))
+  (define (floyd-check-cycle? x y)
+    (cond ((eq? x y) #t)
+	  ((not (valid-step? x y)) #f)
+	  (else (floyd-check-cycle? (cdr x) (cddr y)))))
+  (if (not (valid-step? x x))
+      #f
+      (floyd-check-cycle? (cdr x) (cddr x))))
