@@ -6,7 +6,7 @@
 	#f)))
 (define (assoc key records)
   (cond ((null? records) #f)
-	((eq? key (caar records)) (car records))
+	((equal? key (caar records)) (car records))
 	(else (assoc key (cdr records)))))
 (define (insert! key value table)
   (let ((record (assoc key (cdr table))))
