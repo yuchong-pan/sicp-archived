@@ -6,3 +6,5 @@
     (inverter a2 c)
     (and-gate b c d)
     (inverter d output)))
+
+;; The delay time of the or-gate is two inverter-delays plus one and-gate-delay.
