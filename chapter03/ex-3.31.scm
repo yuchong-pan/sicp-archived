@@ -1,4 +1,5 @@
-;; If the wires are connected in a topological sequence (from input to output), the signal value of each wire will be initialized.
+;; If this initialization does not exist, then (propagate) will not work before any explicit assignments are done.
+;; In other words, the signal value of some wires will not be initialized to the correct values.
 
-;; If the procedure added was not immediately run, the signal value of each wire would be set to 0 after initialization.
-;; However, with the previous definition of `accept-action-procedure!`, wire E is set to 1 rather than 0.
+;; Take the half-adder as an example. If this initialization does not exist, then the signal value of each wire is 0.
+;; However, actually, if the signal values of A and B are both 0, then the signal value of E should be E, rather than 0.
